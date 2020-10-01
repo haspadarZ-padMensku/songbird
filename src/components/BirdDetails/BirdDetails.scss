@@ -1,0 +1,13 @@
+.bird-details {
+  margin: 0 15px;
+  .card {
+    max-width: 320px;
+    display: flex;
+    .media {
+      height: 250px;
+    }
+    .audio {
+      margin: 10px;
+    }
+  }
+}

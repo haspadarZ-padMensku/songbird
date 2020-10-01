@@ -1,0 +1,12 @@
+@import 'components/Header/Header';
+@import 'components/QuestionCard/QuestionCard';
+@import 'components/BirdDetails/BirdDetails';
+// @import 'components/Answers/Answers';
+
+.playground {
+  display: flex;
+  // justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  background-color: lightblue;
+}

@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: cornflowerblue;
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .logo {
+      margin: 15px;
+      padding: 10px;
+      background-color: chocolate;
+      border-radius: 5px;
+    }
+
+    .score {
+      margin: 15px;
+      padding: 10px;
+      background-color: chocolate;
+      border-radius: 5px;
+    }
+  }
+
+  .question-groups {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px;
+    background-color: aquamarine;
+    border-radius: 5px;
+    overflow: hidden;
+
+    .question-groups-item {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      padding: 5px 10px;
+      background-color: aquamarine;
+
+      &.active {
+        background-color: deeppink;
+      }
+
+      &.hover {
+        background-color: lightpink;
+      }
+    }
+  }
+}
