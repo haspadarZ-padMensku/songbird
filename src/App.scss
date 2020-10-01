@@ -1,0 +1,32 @@
+@import 'components/Header/Header';
+@import 'components/QuestionCard/QuestionCard';
+@import 'components/BirdDetails/BirdDetails';
+@import 'components/Answers/Answers';
+@import 'components/GameOver/GameOverScreen';
+
+.playground {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #ffffff;
+  .row {
+    display: flex;
+    @media (max-width: 500px) {
+      flex-direction: column;
+    }
+  }
+  .button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    &:hover {
+      cursor: pointer;
+    }
+    &:disabled {
+      border-color: #caced9;
+      color: #caced9;
+      cursor: pointer;
+    }
+  }
+}
