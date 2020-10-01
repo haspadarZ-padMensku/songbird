@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './App.scss';
 import { Header } from './components';
+import Answers from './components/Answers/Answers';
 import BirdDetails from './components/BirdDetails/BirdDetails';
+import GameOverScreen from './components/GameOver/GameOverScreen';
 import QuestionCard from './components/QuestionCard/QuestionCard';
 import birdsData from './data/birdsData';
 import IBird from './models/IBird';
@@ -30,7 +32,8 @@ const App = () => {
   }, []);
 
   const [question, setQuestion] = useState<IQuestion | null>(null);
-  const [userAnswer, setUserAnswer] = useState<IBird | null>(null);
+  const [userAnswer, setUserAnswer] = useState<string | null>(null);
+  const [mistakes, setMistakes] = useState<string[]>([]);
 
   useEffect(() => {
     if (step === 1) {
@@ -51,11 +54,11 @@ const App = () => {
       const nextQuestion = generateQuestion(step);
       setQuestion(nextQuestion);
       setStep(step + 1);
+      setMistakes([]);
     }
   };
 
-  const startNewGame = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('startNewGame');
+  const startNewGame = () => {
     setCorrect(false);
     setGameOver(false);
     setScore(0);
@@ -63,13 +66,25 @@ const App = () => {
     setStep(1);
   };
 
+  const chooseAnswer = (e: React.MouseEvent<HTMLElement>) => {
+    if (!correct) {
+      setUserAnswer(e.currentTarget.innerText);
+      if (e.currentTarget.innerText === question?.correctAnswer.name) {
+        setCorrect(true);
+        setScore(score + (5 - mistakes.length));
+      } else {
+        setMistakes([...mistakes, e.currentTarget.innerText]);
+      }
+    }
+  };
+
   return (
-    <div className='App'>
-      <Header score={score} />
+    <div className="App">
+      <Header score={score} step={step} />
       {gameOver ? (
-        <div>Game Over.</div>
+        <GameOverScreen score={score} callback={startNewGame} />
       ) : (
-        <div className='playground'>
+        <div className="playground">
           {question && (
             <QuestionCard
               image={question.correctAnswer.image}
@@ -78,15 +93,23 @@ const App = () => {
               correct={correct}
             />
           )}
-          {userAnswer && <BirdDetails bird={userAnswer} />}
-        </div>
-      )}
-      {gameOver ? (
-        <button onClick={startNewGame}>Try again</button>
-      ) : (
-        <div className='buttons'>
-          <button onClick={onNext}>Next</button>
-          <button onClick={() => setCorrect(!correct)}>correct</button>
+          <div className="row">
+            {question && (
+              <Answers
+                answers={question.answers}
+                correctAnswer={question.correctAnswer}
+                userAnswer={userAnswer}
+                mistakes={mistakes}
+                callback={chooseAnswer}
+              />
+            )}
+            {question && <BirdDetails bird={question.answers.find((item) => item.name === userAnswer) || null} />}
+          </div>
+          {!gameOver && (
+            <button className="button" onClick={onNext} disabled={!correct}>
+              Next
+            </button>
+          )}
         </div>
       )}
     </div>

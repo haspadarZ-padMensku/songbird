@@ -1,31 +1,37 @@
-import * as React from 'react';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import React from 'react';
 import IBird from '../../models/IBird';
 
 interface Props {
-  bird: IBird;
+  bird: IBird | null;
 }
 
 function BirdDetails({ bird }: Props) {
+  if (!bird) {
+    return (
+      <div className="bird-details">
+        <div className="message">Please choose a bird form the list</div>
+      </div>
+    );
+  }
   return (
-    <div className='bird-details'>
-      <Card className='card'>
-        <CardActionArea>
-          <CardMedia className='media' image={bird.image} title='Bird' />
-          <audio className='audio' controls src={bird.audio} />
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='h5'>
-              {bird.name}
-            </Typography>
-            <Typography gutterBottom variant='h6' component='h6'>
-              {bird.species}
-            </Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {bird.description}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+    <div className="bird-details">
+      <div className="info">
+        <div className="row">
+          <div className="image-container">
+            <div className="image-wrapper">
+              <img className="image" src={bird.image} alt="Bird" />
+            </div>
+          </div>
+          <div className="short-info">
+            <div className="name">{bird.name}</div>
+            <div className="type">{bird.species}</div>
+            <audio className="audio" controls src={bird.audio} />
+          </div>
+        </div>
+        <div className="full-info">
+          <div className="description">{bird.description}</div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,30 @@
+.game-over-screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 30px;
+  margin: 0 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #caced9;
+  text-align: center;
+  &:hover {
+    border: 1px solid #000000;
+    cursor: default;
+  }
+  .button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    &:hover {
+      cursor: pointer;
+    }
+    &:disabled {
+      border-color: #caced9;
+      color: #caced9;
+      cursor: pointer;
+    }
+  }
+}

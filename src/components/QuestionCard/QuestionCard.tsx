@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import unknown from '../../images/unknown.png';
 
 interface Props {
   image: string;
@@ -8,23 +8,20 @@ interface Props {
   correct: boolean;
 }
 
-const QuestionCard: React.FC<Props> = ({ image, name, audio, correct }) => {
-  console.log({ image, name, audio, correct });
+function QuestionCard({ image, name, audio, correct }: Props) {
   return (
-    <div className='question-card'>
-      <Card className='card'>
-        <CardActionArea>
-          <CardMedia className={correct ? 'media' : 'media-blur'} image={image} title='Bird' />
-          <audio className='audio' controls src={audio} />
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='h5'>
-              {correct ? name : '********'}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+    <div className="question-card">
+      <div className="image-container">
+        <div className="image-wrapper">
+          <img className="image" src={correct ? image : unknown} alt="Bird" />
+        </div>
+      </div>
+      <div className="info">
+        <div className="name">{correct ? name : '********'}</div>
+        <audio className="audio" controls src={audio} />
+      </div>
     </div>
   );
-};
+}
 
 export default QuestionCard;
