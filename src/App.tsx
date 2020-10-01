@@ -1,10 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './App.scss';
-import { Header } from './components';
-import Answers from './components/Answers/Answers';
-import BirdDetails from './components/BirdDetails/BirdDetails';
-import GameOverScreen from './components/GameOver/GameOverScreen';
-import QuestionCard from './components/QuestionCard/QuestionCard';
+import { Answers, BirdDetails, GameOverScreen, Header, QuestionCard } from './components';
 import birdsData from './data/birdsData';
 import IBird from './models/IBird';
 import IQuestion from './models/IQuestion';
