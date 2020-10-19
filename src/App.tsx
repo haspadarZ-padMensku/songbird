@@ -42,7 +42,6 @@ const App = () => {
   };
 
   const onNext = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('next q');
     if (step >= 6) {
       setGameOver(true);
     } else {
@@ -58,6 +57,7 @@ const App = () => {
     setCorrect(false);
     setGameOver(false);
     setScore(0);
+    setMistakes([]);
     setUserAnswer(null);
     setStep(1);
   };
