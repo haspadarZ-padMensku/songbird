@@ -1,9 +1,9 @@
 import React from 'react';
-import IBird from '../../models/IBird';
+import Bird from '../../models/Bird';
 
 interface Props {
-  answers: IBird[];
-  correctAnswer: IBird;
+  answers: Bird[];
+  correctAnswer: Bird;
   userAnswer: string | null;
   mistakes: string[] | [];
   callback: (e: React.MouseEvent<HTMLElement>) => void;

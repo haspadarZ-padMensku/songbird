@@ -1,8 +1,8 @@
 import React from 'react';
-import IBird from '../../models/IBird';
+import Bird from '../../models/Bird';
 
 interface Props {
-  bird: IBird | null;
+  bird: Bird | null;
 }
 
 function BirdDetails({ bird }: Props) {

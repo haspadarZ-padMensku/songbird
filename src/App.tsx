@@ -1,35 +1,30 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import './App.scss';
 import { Answers, BirdDetails, GameOverScreen, Header, QuestionCard } from './components';
 import birdsData from './data/birdsData';
-import IBird from './models/IBird';
-import IQuestion from './models/IQuestion';
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * Math.floor(max));
-};
-
-const shuffleAnswers = (answers: IBird[]) => [...answers].sort(() => Math.random() - 0.5);
+import Question from './models/Question';
+import getRandomInt from './utils/getRandomInt';
+import shuffleAnswers from './utils/shuffleAnswers';
+import './App.scss';
 
 const App = () => {
   const [score, setScore] = useState<number>(0);
   const [step, setStep] = useState<number>(1);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [correct, setCorrect] = useState<boolean>(false);
+  const [question, setQuestion] = useState<Question | null>(null);
+  const [userAnswer, setUserAnswer] = useState<string | null>(null);
+  const [mistakes, setMistakes] = useState<string[]>([]);
 
   const generateQuestion = useCallback((group: number) => {
     const answers = birdsData[group];
     const correctAnswer = answers[getRandomInt(answers.length)];
-    const currentQuestion: IQuestion = {
+    const currentQuestion: Question = {
       correctAnswer,
       answers: shuffleAnswers(answers),
     };
+
     return currentQuestion;
   }, []);
-
-  const [question, setQuestion] = useState<IQuestion | null>(null);
-  const [userAnswer, setUserAnswer] = useState<string | null>(null);
-  const [mistakes, setMistakes] = useState<string[]>([]);
 
   useEffect(() => {
     if (step === 1) {
@@ -70,6 +65,8 @@ const App = () => {
     }
   };
 
+  const getBirdByName = () => question?.answers.find((item) => item.name === userAnswer) || null;
+
   return (
     <div className="App">
       <Header score={score} step={step} />
@@ -95,7 +92,7 @@ const App = () => {
                 callback={chooseAnswer}
               />
             )}
-            {question && <BirdDetails bird={question.answers.find((item) => item.name === userAnswer) || null} />}
+            {question && <BirdDetails bird={getBirdByName()} />}
           </div>
           {!gameOver && (
             <button className="button" onClick={onNext} disabled={!correct}>
