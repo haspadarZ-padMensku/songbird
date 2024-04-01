@@ -37,10 +37,6 @@ const App = () => {
     }
   }, [step, generateQuestion]);
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('checkAnswer');
-  };
-
   const onNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (step >= 6) {
       setGameOver(true);
